@@ -7,7 +7,7 @@ Submit Claims:
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgPOE"
         mc:Ignorable="d" 
-        Title="SubmitClaim" Height="450" Width="800"> 
+        Title="SubmitClaim" Height="450" Width="800">
     <Grid Margin="10"> 
         <StackPanel> 
             <TextBlock Text="Submit Claim" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/> 
