@@ -1,69 +1,60 @@
 # PROGPOE2
 Submit Claims:
-  Background="#F4F4F4">
-
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="#007ACC"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#005DA3"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-        </Style>
-    </Window.Resources>
-
-    <Grid>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Left" Width="250" Background="#EAEAEA" Padding="10">
-                <TextBlock Text="Navigation" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
-                <Button Content="Submit Claim" Click="SubmitClaim_Click"/>
-                <Button Content="Approve Claims" Click="ApproveClaims_Click"/>
-                <Button Content="Upload Documents" Click="UploadDocuments_Click"/>
-                <Button Content="Track Claim Status" Click="TrackStatus_Click"/>
-            </StackPanel>
-
-            <StackPanel Margin="10">
-                <TextBlock Text="Welcome to the CMCS Dashboard" FontSize="26" FontWeight="Bold" Foreground="#007ACC"/>
-                <TextBlock Text="Here you can manage your claims and documents." FontSize="16" Foreground="#555555"/>
-                <TextBlock Text="Claim Status Overview" FontSize="20" FontWeight="SemiBold" Foreground="#333333"/>
-                <TextBlock Text="No claims submitted yet." FontSize="14" Foreground="#777777" Margin="5"/>
-            </StackPanel>
-        </DockPanel>
-    </Grid>
-</Window>
-
-Approve claims:
-<Window x:Class="ProgPOE.claimsApproved"
+<Window x:Class="WpfApp2.submitClaims"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProgPOE"
+        xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="Approve Claims" Height="600" Width="800">
+        Title="submitClaims" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Submit Claim" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Lecturer ID:" Width="120"/>
+                <TextBox x:Name="LecturerIdTextBox" Width="120"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Hours Worked:" Width="120"/>
+                <TextBox x:Name="HoursWorkedTextBox" Width="120"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Hourly Rate:" Width="120"/>
+                <TextBox x:Name="HourlyRateTextBox" Width="120" IsReadOnly="True" Text="50"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Notes:" Width="120"/>
+                <TextBox x:Name="NotesTextBox" Width="350" Height="50" AcceptsReturn="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Supporting Documents:" Width="120"/>
+                <Button Content="Browse..." Width="120" Click="BrowseFiles_Click"/>
+            </StackPanel>
+            <ListBox x:Name="UploadedFilesListBox" Height="100" Margin="0,10,0,0"/>
+            <Button Content="Submit Claim" Width="120" HorizontalAlignment="Center" Click="SubmitClaimButton_Click"/>
+            <TextBlock Text="Claim Status" FontSize="18" FontWeight="Bold" Margin="0,30,0,5"/>
+            <DataGrid x:Name="ClaimStatusDataGrid" AutoGenerateColumns="False" Height="200" Margin="0,10,0,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Lecturer ID" Binding="{Binding LecturerId}" Width="100"/>
+                    <DataGridTextColumn Header="Hours Worked" Binding="{Binding HoursWorked}" Width="100"/>
+                    <DataGridTextColumn Header="Amount Due" Binding="{Binding AmountDue}" Width="100"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
+
+Approve claims:
+<Window x:Class="WpfApp2.claimsApproved"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="claimsApproved" Height="450" Width="800">
     <Grid Margin="10">
         <StackPanel>
             <TextBlock Text="Claims Approved" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
@@ -91,13 +82,14 @@ Approve claims:
     </Grid>
 </Window>
 
+
 Upoload document:
-<Window x:Class="ProgPOE.uploadDocuments"
+<Window x:Class="WpfApp2.uploadDocuments"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProgPOE"
+        xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         Title="uploadDocuments" Height="450" Width="800">
     <Grid Margin="10">
@@ -113,5 +105,6 @@ Upoload document:
             <Button Content="Upload" Width="120" HorizontalAlignment="Center" Click="UploadFiles_Click"/>
         </StackPanel>
     </Grid>
-</Window> 
+</Window>
+
 
